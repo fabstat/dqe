@@ -1,0 +1,236 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>Modeling Stochastic Processes in Ecology</title>
+
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/blood.css">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+  </head>
+  
+  <body>
+    <div class="reveal">
+      <div class="slides">
+	
+	<section data-background-image="img/amazon.jpeg" data-background-opacity=".4">
+	  <h4>Modeling Stochastic Processes in Ecology</h4>
+	  <small>Doctoral Qualifying Exam by Fabiana Ferracina</small><br>
+	  <small>May 5th, 2021</small>
+	</section>
+	
+	<section data-background-image="img/brook.jpeg" data-background-opacity=".4">
+	  <h4>Presentation Sections</h4>
+	  <ol>
+	    <li class="fragment">Intro: Problems in Statistical Ecology</li>
+	    <li class="fragment">Hierarchical Species Distribution Modeling</li>
+	    <ol>
+	      <li class="fragment">Case Study: Oceanic Whitetip Shark Distribution</li>
+	      </ol>
+	    <li class="fragment">Hidden Markov Models</li>
+	    <ol>
+	      <li class="fragment">Case Study: Ontogeny of Bald Eagle Behavior</li>
+	      </ol>
+	    <li class="fragment">Conclusion and Next Steps</li>
+	  </ol>
+	</section>
+	
+	<section data-background-image="img/catrun.gif" data-background-opacity=".3">
+	  <h4>Intro: Problems in Statistical Ecology</h4>
+	  <ul>
+	    <li class="fragment">Species Distribution Modeling</li>
+	    <li class="fragment">Quantifying Biodiversity</li>
+	    <li class="fragment">Population Dynamics</li>
+	    <li class="fragment">Animal Movement</li>
+	    <li class="fragment">Citizen Science Data</li>
+	  </ul>
+	  <p> <small class="fragment"><a href="sources/gimenez2014.pdf" target="_blank">Gimenez et al (2014)</a></small></p>
+	</section>
+	
+	<section>
+	  <section>
+	    <h4>Hierarchical Species Distribution Modeling</h4>
+	    <p><img src="img/hsdm.png" width="600px"></p>
+	    <small><a href="sources/hefley2016.pdf" target="_blank">Hefley et al 2016</a></small>
+	  </section>
+	  <section data-background-image="img/hsdm.png" data-background-opacity=".5" data-background-transition="zoom">
+	  </section>
+	  <section data-transition="none" data-background-image="img/hsdm.png" data-background-opacity=".1">
+	    <h4>Inhomogeneous Poisson Point Process</h4>
+	    <p>$$\log L (\lambda; \mathbf{U}) = \sum\limits_{i=1}^n \log \lambda (\mathbf{s}_i, t_i) - \int\limits_{\mathcal{A}}\int\limits_0^T \lambda(\mathbf{s},t) dtd\mathbf{s} - \log(n!)$$</p>
+	    <p>The probability that the number of points $> 0 \sim$ Bernoulli$(1-e^{-\bar{\lambda}})$</p>
+	  </section>
+	  </section>
+
+	<section>
+	  <section data-background-image="img/ows.jpg" data-background-opacity=".3">
+	    <h4>Case Study: Oceanic Whitetip Shark Distribution</h4>
+	  </section>
+
+	   <section data-background-video="img/ows.mp4" data-background-video-muted="true" data-background-opacity=".3">
+	    <h4>Shark Presence Data</h4>
+	    <p><img src="img/ows_distro.png" width="900px"></p>
+	    <small><a href="https://obis.org/" target="_blank">Ocean Biodiversity Information System</a></small>
+	  </section>
+
+	  <section data-background-image="img/ows_distro.png" data-background-opacity=".3" data-background-transition="zoom">
+	    <h4>Ocean Climate Data</h4>
+	    <p><img src="img/tempviolin.png" width="300px">
+	      <img src="img/salinityviolin.png" width="300px">
+	      <img src="img/curvelviolin.png" width="300px"></p>
+	    <small><a href="https://bio-oracle.org/" target="_blank">Bio-Oracle</a></small>
+	  </section>
+	  <section data-transition="fade-out">
+	    <h4>GLM</h4>
+	    <p><img src="img/glm_present_global.png" width="600px">
+	    </p>
+	  </section>
+	  <section data-transition="fade-in">
+	    <h4>Maxent</h4>
+	    <p><img src="img/maxent.png" width="600px"></p>
+	  </section>
+	   <section data-transition="fade-in">
+	    <h4>Metropolis-Hastings</h4>
+	    <p><img src="img/mh_suitability.png" width="600px"></p>
+	   </section>
+	   </section>
+
+	  
+	<section>
+	  <section>
+	    <h4>Hidden Markov Models</h4>
+	    <p><img src="img/hidden.gif" width="400px"></p>
+	    </section>
+	   <section  data-transition="fade-out"> 
+	     <h4>Hidden Markov Models</h4>
+	     Given a sequence of observations, an HMM assumes that there is a <span class="fragment highlight-red">hidden process</span> behind them. Each observation at a given time is emitted via some  <span class="fragment highlight-red">distribution given a hidden state</span>, and the observations are independent of each other. The hidden process has the  <span class="fragment highlight-red">Markov property</span>, i.e. the state at time $t$ only depends on the state at time $t-1$.
+	   </section>
+	   <section data-transition="fade-in">
+	     <h4>Hidden Markov Models</h4>
+	      <p><img src="img/hmm.png" width="800px"></p>
+	    </section>
+	    <section>
+	      <h4>Definition</h4>
+	      The discrete-time finite state HMM is completely defined as follows:
+	      <ol>
+		<li class="fragment">Number of states, $K$, i.e. latent patterns of interest.</li>
+		<li class="fragment">Transition probability matrix $\Gamma$, for the hidden states $X$:
+		  $P(X_t = j | X_{t-1} = i)$ for $i,j \in \{1, \dots, K\}$.</li>
+		<li class="fragment">State-dependent distributions for the observations $Y$ that stem from the latent states: $f(Y_t|X_t = k) \Rightarrow$ any valid distribution function.</li>
+		<li class="fragment">Initial state distribution, $\delta$, i.e. the first pattern exhibited: $P(X_1 = k)$.</li>
+	      </ol>
+	    </section>
+	</section>
+	
+	<section>
+	  <section data-background-image="img/fight.jpg" data-background-opacity=".3">
+	    <h4>Case Study: Ontogeny of Bald Eagle Behavior</h4>
+	  </section>
+	  <section  data-background-video="img/soaring.mp4" data-background-video-muted="true" data-background-opacity=".3">
+	    <h4>Telemetry Data</h4>
+	    <p class="fragment">Data from 10 tagged bald eagles from the Great Plains of the United States, followed from 2016-2020.</p>
+	    <p class="fragment">Dataset contains 3,313,548 position readings.</p>
+	    <p class="fragment">Variables: animal id, date, latitude, longitude, speed, heading, altitude, battery power, differences in time, distance and altitude from previous position fix, and binned fix rate.</p>
+	    <p class="fragment highlight-red"><i>Question: Given these data, can we detect how the eagles’ behaviors differ based on their age?</i></p>
+	  </section>
+	  <section>
+	    <h4>State-Dependent Distributions</h4>
+	    $$\begin{align*}
+L_t | X_t = j &\sim \mathrm{Gamma}(\alpha_j, \beta_j)\\
+\phi_t | X_t = j &\sim \mathrm{von Mises}(\mu_j, \kappa_j)
+	    \end{align*}$$
+	    <p><img src="img/stepHist.png" width="400px">
+	      <img src="img/angHist.png" width="400px"></p>
+	  </section>
+	  <section>
+	    <h4>Covariates and Transition Probabilities</h4>
+	    <p>Covariates, such as environmental factors, tree cover, distance to water bodies  - or in the case my model at this time speed in km per hour, altitude and heading - are incorporated into the transition probabilities $\gamma^{(t)}_{ij}$ via the multinomial logistic link function:</p>
+<p>$$\begin{align*}\gamma^{(t)}_{ij} &= \frac{\exp(\eta_{ij})}{\sum_{k=1}^N\exp(\eta_{ik})}, \\ \\ \mathrm{where} \ \eta_{ij} &= \begin{cases}\beta_0^{(ij)} + \sum_{l=1}^p \beta_l^{(ij)}\omega_l^t & \mathrm{if} \ i \neq j \\ 0 & \mathrm{otherwise}\end{cases}.\end{align*}$$</p>
+	  </section>
+	  <section data-transition="fade-out">
+	    <h4>Stats Cauldron</h4>
+	    <img src="img/ml.png" width="850px">
+	  </section>
+	   <section data-transition="fade-in">
+	    <h4>RStan Stove</h4>
+	    <img src="img/stove.png" width="550px">
+	   </section>
+	   <section data-background-image="img/soaringmodes.jpg" data-background-opacity=".4">
+	     <h4>Results</h4>
+	     <p><img src="img/stan.png" width="600px"></p>
+	     <p><img src="img/stepDistros.png" width="400px">
+	      <img src="img/angleDistros.png" width="400px"></p>
+	   </section>
+	   <section data-background-image="img/soaringmodes.jpg" data-background-opacity=".4">
+	     <h4>Age Differences (yet to be explored...)</h4>
+	     <p><img src="img/earlysteps.png" width="400px">
+	      <img src="img/latersteps.png" width="400px"></p>
+	     </section>
+	   
+	</section>
+	
+	<section>
+	<section data-background-image="img/tundraSwan.gif" data-background-opacity=".3">
+	  <h4>Conclusion and Next Steps</h4>
+	  <ol>
+	    <li class="fragment">Continue work with the bald eagle data and identify 4-5 flight modes.</li>
+	    <li class="fragment">Use of environmental and landscape variables as covariates.</li>
+	    <li class="fragment">Hyperparameters to model differences between birds.</li>
+	    <li class="fragment">State decoding in order to determine the underlying state sequence that led to the observed data.</li>
+	    </ol>
+	</section>
+	<section data-background-image="img/babies.jpeg" data-background-opacity=".3">
+	  <h6>Hierarchical Hidden Markov Model</h6>
+	    <p><img src="img/hhmm.png" width="850px"></p>
+	</section>
+	<section data-background-image="img/atmriver.jpeg" data-background-opacity=".4">
+	  <h6>Topological Data Analysis</h6>
+	  <p class="fragment">Topology, the study of shape, can produce more explainable models: data has shape.</p>
+	  <p class="fragment">For example, an atmospheric river is a long narrow high-moisture filament, resembling a river in many ways including their shape.</p>
+	  <p class="fragment"><a href="https://gmd.copernicus.org/articles/12/613/2019/" target="_blank">Topological data analysis and machine learning for recognizing atmospheric river patterns in large climate datasets by Grzegorz Muszynski et al (2018)</a></p>
+	</section>
+	<section>
+	  <h4>Thank you! Questions?</h4>
+	  <p><img src="img/asharkstailsparks.gif" width="600px"></p>
+	  </section>
+	</section>
+      </div>
+    </div>
+
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+
+    <script>
+      // More info about config & dependencies:
+      // - https://github.com/hakimel/reveal.js#configuration
+      // - https://github.com/hakimel/reveal.js#dependencies
+      Reveal.initialize({
+      autoPlayMedia: true,
+      math: {
+      mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js',
+      config: 'TeX-AMS_HTML-full'  // See http://docs.mathjax.org/en/latest/config-files.html
+      },
+      dependencies: [
+      { src: 'plugin/markdown/marked.js' },
+      { src: 'plugin/markdown/markdown.js' },
+      { src: 'plugin/notes/notes.js', async: true },
+      { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+      { src: 'plugin/math/math.js', async: true }
+      ]
+      });
+    </script>
+  </body>
+</html>
